@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | My Learning Space</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            margin: 0;
+            padding: 20px;
+            color: #222;
+        }
+
+        header {
+            background: #173b75;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 25px auto;
+        }
+
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px #00000010;
+        }
+
+        .summary h2 {
+            margin-bottom: 5px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            word-break: break-word;
+        }
+
+        th {
+            background-color: #173b75;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f5fc;
+        }
+
+        button {
+            border: none;
+            padding: 9px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 3px;
+        }
+
+        .delete-button {
+            background: #dc3545;
+            color: white;
+        }
+
+        .clear-button {
+            background: #173b75;
+            color: white;
+            margin-top: 15px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            color: #173b75;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>My Learning Space</h1>
+        <p>Admin Dashboard - Student Registrations</p>
+    </header>
+
+    <main class="container">
+        <section class="summary">
+            <h2>Total Registrations: <span id="totalStudents">0</span></h2>
+            <p>View students who have registered for your courses.</p>
+        </section>
+
+        <section class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>About</th>
+                        <th>Date Registered</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="studentsTable">
+                    <!-- JavaScript will insert student records here -->
+                </tbody>
+            </table>
+
+            <p id="emptyMessage" class="empty-message">
+                No registrations found yet.
+            </p>
+
+            <button class="clear-button" id="clearRegistrations">
+                Delete All Registrations
+            </button>
+        </section>
+
+        <a href="index.html" class="back-button">← Back to Main Website</a>
+    </main>
+
+    <script>
+        // Get all registrations from the server.
+        async function getRegistrations() {
+            try {
+                const response = await fetch("/api/registrations");
+                const data = await response.json();
+                return Array.isArray(data) ? data : [];
+            } catch (error) {
+                alert("Could not reach the server. Is it running?");
+                return [];
+            }
+        }
+
+        // Display all registrations in the table.
+        async function displayRegistrations() {
+            const registrations = await getRegistrations();
+            const table = document.getElementById("studentsTable");
+            const total = document.getElementById("totalStudents");
+            const emptyMessage = document.getElementById("emptyMessage");
+
+            table.replaceChildren();
+            total.textContent = registrations.length;
+            emptyMessage.style.display =
+                registrations.length === 0 ? "block" : "none";
+
+            registrations.forEach(function(student, index) {
+                const row = document.createElement("tr");
+
+                const values = [
+                    index + 1,
+                    student.name || "",
+                    student.email || "",
+                    student.course || "",
+                    student.about || "",
+                    student.date ? new Date(student.date).toLocaleString() : ""
+                ];
+
+                values.forEach(function(value) {
+                    const cell = document.createElement("td");
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                });
+
+                const actionCell = document.createElement("td");
+                const deleteButton = document.createElement("button");
+
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "delete-button";
+
+                deleteButton.addEventListener("click", async function() {
+                    const confirmed = confirm(
+                        "Are you sure you want to delete this registration?"
+                    );
+
+                    if (confirmed) {
+                        try {
+                            await fetch("/api/registrations/" + student.id, {
+                                method: "DELETE"
+                            });
+                        } catch (error) {
+                            alert("Could not delete. Is the server running?");
+                        }
+                        displayRegistrations();
+                    }
+                });
+
+                actionCell.appendChild(deleteButton);
+                row.appendChild(actionCell);
+                table.appendChild(row);
+            });
+        }
+
+        // Delete every saved registration.
+        document.getElementById("clearRegistrations")
+            .addEventListener("click", async function() {
+                const registrations = await getRegistrations();
+
+                if (registrations.length === 0) {
+                    alert("There are no registrations to delete.");
+                    return;
+                }
+
+                const confirmed = confirm(
+                    "This will permanently delete all registrations. Continue?"
+                );
+
+                if (confirmed) {
+                    try {
+                        await fetch("/api/registrations", { method: "DELETE" });
+                        alert("All registrations have been deleted");
+                    } catch (error) {
+                        alert("Could not delete. Is the server running?");
+                    }
+                    displayRegistrations();
+                }
+            });
+
+        // Load the records when the page opens.
+        displayRegistrations();
+    </script>
+
+</body>
+</html>

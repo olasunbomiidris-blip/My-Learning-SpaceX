@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+     initial-scale=1.0">
+     <title>My Learning Space</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head><body><!-- Navigation -->
+<header class="navbar">
+    <a href="#home" class="logo">
+        <span class="logo-icon">M</span>
+        <span>My Learning <span class="green">Space</span></span>
+    </a>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#resources">Resources</a>
+        <a href="#register" class="nav-button">Join Us</a>
+    </nav>
+</header>
+
+<!-- Homepage -->
+<main>
+
+    <section class="hero" id="home">
+
+        <p class="eyebrow">
+            <span class="dot"></span>
+            LEARN. BUILD. BECOME.
+        </p>
+
+        <h1>
+            Your Future<br>
+            Starts With <span>Learning.</span>
+        </h1>
+
+        <p class="hero-text">
+            Discover new skills, explore technology, and develop
+            the knowledge you need to achieve your goals.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#courses" class="btn btn-blue">
+                Explore Courses →
+            </a>
+
+            <a href="#register" class="btn btn-peach">
+                Join Our Community
+            </a>
+        </div>
+
+        <div class="welcome-card">
+            <div class="welcome-icon">✦</div>
+
+            <div>
+                <h3>Your learning journey begins here.</h3>
+                <p>Learn at your pace. Grow your skills.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Courses -->
+    <section class="section" id="courses">
+
+        <div class="section-heading">
+            <p class="eyebrow">EXPLORE YOUR POTENTIAL</p>
+            <h2>What do you want to learn?</h2>
+            <p>Explore subjects that can help you 
+               build your future.</p>
+        </div>
+
+        <div class="course-grid">
+            <!-- Your four course cards are here -->
+
+            <article class="course-card">
+                <div class="course-icon blue-bg">🌐</div>
+                <h3>Web Development</h3>
+    <p>Learn HTML, CSS, and JavaScript to build websites.</p>
+    <a href="https://www.freecodecamp.org/learn/" target="_blank">
+        Start learning →
+    </a>
+            </article>
+
+            <article class="course-card">
+                <div class="course-icon orange-bg">🐍</div>
+                <h3>Python Programming</h3>
+    <p>Discover programming and learn to solve problems.</p>
+    <a href="https://www.freecodecamp.org/learn/" target="_blank"> 
+        Start learning →
+    </a>
+            </article>
+
+            <article class="course-card">
+                <div class="course-icon green-bg">🔐</div>
+                <h3>Cybersecurity</h3>
+    <p>Explore online safety and the basics of digital security.</p>
+    <a href="https://www.freecodecamp.org/learn/" target="_blank">
+        Start learning →
+    </a>
+            </article>
+
+            <article class="course-card">
+                <div class="course-icon peach-bg">📊</div>
+                <h3>Data Analytics</h3>
+    <p>Learn how data can reveal useful information.</p>
+    <a href="https://www.freecodecamp.org/learn/" target="_blank">
+        Start learning →
+    </a>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="section resources-section" id="resources">
+
+        <div class="section-heading">
+            <p class="eyebrow">KEEP GROWING</p>
+            <h2>Learning Resources</h2>
+            <p>Useful materials to support your learning journey.</p>
+        </div>
+
+        <div class="resource-card">
+            <div class="resource-symbol">📚</div>
+
+            <div class="resource-content">
+           <span class="resource-label">BEGINNER FRIENDLY</span>
+                <h3>Your First Steps in Web Development</h3>
+                <p>
+                    Start by understanding HTML structure,
+                    then learn CSS styling and JavaScript.
+                </p>
+                <a href="#register">Join to get started →</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Registration -->
+    <section class="section registration-section" id="register">
+
+        <div class="section-heading">
+            <p class="eyebrow">BECOME PART OF THE COMMUNITY</p>
+            <h2>Start Your Learning Journey</h2>
+            <p>Complete the form below to introduce yourself.</p>
+        </div>
+
+        <form id="registrationForm" class="registration-form" action="#"
+             method="post"> 
+          
+
+            <div class="form-group">
+                <label for="studentName">Full Name</label>
+                <input
+                    type="text"
+                    id="studentName"
+                    name="fullname"
+                    placeholder="Enter your full name"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="studentEmail">Email Address</label>
+                <input 
+                    type="email"
+                    id="studentEmail"
+                    name="email"
+                    placeholder="Your Email"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="course">Course of Interest</label>
+
+                <select id="course" name="course" required>
+                    <option value="">Choose a course</option>
+                    <option value="Web Development">
+                        Web Development</option>
+                    <option value="Python Programming">
+                        Python Programming</option>
+                    <option value="Cybersecurity">
+                        Cybersecurity</option>
+                    <option value="Data Analytics">
+                        Data Analytics</option>
+                </select>
+                <br>
+            </div>
+            <br>
+
+            <div class="form-group">
+        <label for="studentAbout">Tell Us About Yourself</label>
+                
+
+                <textarea
+                    id="studentAbout"
+                    name="about"
+                    rows="4"
+                    placeholder="What would you like to learn?"
+                ></textarea>
+                <br>
+            </div>
+
+            <label class="agreement">
+                <input type="checkbox" name="agreement" required>
+                <span>I agree to the registration terms.</span>
+            </label>
+
+         <button type="submit" class="btn btn-blue submit-button">
+                Register Now →
+            </button>
+
+         <p class="form-note">
+            Registration preview: submissions are not stored yet.
+            </p>
+
+        </form>
+    </section>
+    <section>
+          <!-- Registered Students Section -->
+          <section id="registered-students" class="registered-
+           students">
+           <h2>Our Registered Students</h2>
+           <p>Meet Students who have joined our learning
+            community!</p>
+
+            <div id="studentList" class="student-list"></div>
+
+            <p id="noStudentsMessage">
+                No students have registered yet.
+            </p>
+    </section>
+
+    <!-- About -->
+    <section class="about-section" id="about">
+        <p class="eyebrow">OUR PURPOSE</p>
+        <h2>Learning opens new possibilities.</h2>
+        <p>
+            My Learning Space is a learning website concept
+             designed to help students explore technology, 
+             develop skills,and take steps toward their ambitions.
+        </p>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <a href="#home" class="logo">
+        <span class="logo-icon">M</span>
+      <span>My Learning <span class="green">Space</span></span>
+    </a>
+
+    <p>Learn something new. Build your future.</p>
+
+    <a href="#about">About Us</a>
+
+    <p class="copyright">
+        © 2026 My Learning Space
+    </p>
+</footer>
+
+   <script src="script.js"></script> 
+</body>
+</html>
