@@ -43,7 +43,7 @@ if (registrationForm) {
             registrationForm.reset();
             displayingRegisteredStudents();
         } catch (error) {
-            alert("Could not reach the server. Is it running?");
+            alert("Registration is not available in this preview version.");
         }
     });
 }
